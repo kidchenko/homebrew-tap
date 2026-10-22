@@ -19,6 +19,10 @@ jobs:
       - name: Style
         run: brew style kidchenko/tap
       - name: Audit
+        env:
+          # The online audit calls the GitHub API; anonymously it shares a
+          # 60/hour limit with every job on the runner's IP.
+          HOMEBREW_GITHUB_API_TOKEN: ${{ github.token }}
         run: brew audit --cask --online --tap kidchenko/tap
       # Proves the url, sha256, app name and uninstall stanzas all line up.
       - name: Install and uninstall
