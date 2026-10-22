@@ -53,4 +53,7 @@ jobs:
             v="$(sed -n 's/^  version "\(.*\)"/\1/p' "$f")"
             git commit -q -m "chore: bump $cask to $v" -- "$f"
           done
+          # Another bump may have landed since checkout; each touches only its
+          # own cask, so replaying on top of it is safe.
+          git pull -q --rebase origin main
           git push
