@@ -3,8 +3,8 @@
 #
 # The tap's bump workflow rewrites `version` and `sha256` from the latest release.
 cask "suavez" do
-  version "0.0.1"
-  sha256 "e0106eb795d80f3d560fb48ef443be56578152aa12f627af1450d71f1afb4567"
+  version "0.0.2"
+  sha256 "b12394a81255fdd9434d016761ee2a310c6ed39a2cd39d5715e2f02c71a3bb12"
 
   url "https://github.com/kidchenko/suavez/releases/download/v#{version}/SuaVez-#{version}.dmg"
   name "Sua Vez"
