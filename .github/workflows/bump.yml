@@ -1,0 +1,52 @@
+name: bump
+
+# Keeps every cask on its app's latest release. Runs daily, from the Actions
+# tab (optionally for one cask), or from an app's release workflow:
+#   gh workflow run bump.yml --repo kidchenko/homebrew-tap -f cask=suavez
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+    inputs:
+      cask:
+        description: "Cask to bump (blank for all)"
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bump
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bump casks
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .github/scripts/bump.sh ${{ github.event.inputs.cask }}
+      - name: Check the result
+        run: |
+          git diff --quiet && exit 0
+          brew tap-new --no-git local/check >/dev/null
+          brew trust --tap local/check
+          mkdir -p "$(brew --repository local/check)/Casks"
+          cp Casks/*.rb "$(brew --repository local/check)/Casks/"
+          for f in $(git diff --name-only -- Casks); do
+            brew audit --cask --online "local/check/$(basename "$f" .rb)"
+          done
+      - name: Commit
+        run: |
+          git diff --quiet && { echo "nothing to bump"; exit 0; }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for f in $(git diff --name-only -- Casks); do
+            cask="$(basename "$f" .rb)"
+            v="$(sed -n 's/^  version "\(.*\)"/\1/p' "$f")"
+            git commit -q -m "chore: bump $cask to $v" -- "$f"
+          done
+          git push

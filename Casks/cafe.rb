@@ -1,17 +1,22 @@
 # Homebrew cask. Lives in a tap (github.com/kidchenko/homebrew-tap) as
 # Casks/cafe.rb, then: brew install --cask kidchenko/tap/cafe
 #
-# The release workflow rewrites `version` and `sha256` from the DMG it built.
+# The tap's bump workflow rewrites `version` and `sha256` from the latest release.
 cask "cafe" do
   version "0.0.1"
   sha256 "7942e9b7b4baa3e945f57b5dbc52f6ef9eaba7f30097263df8c4e3db4c98e583"
 
   url "https://github.com/kidchenko/cafe/releases/download/v#{version}/Cafe-#{version}.dmg"
   name "Cafe"
-  desc "Keep your Mac awake from the menu bar"
+  desc "Menu bar toggle that keeps the computer awake"
   homepage "https://github.com/kidchenko/cafe"
 
-  depends_on macos: :big_sur
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
+  depends_on :macos
 
   app "Cafe.app"
 
@@ -22,8 +27,8 @@ cask "cafe" do
         writable_paths: ["{{appdir}}/Cafe.app"]
   end
 
-  uninstall quit:      "com.kidchenko.cafe",
-            launchctl: "com.kidchenko.cafe"
+  uninstall launchctl: "com.kidchenko.cafe",
+            quit:      "com.kidchenko.cafe"
 
   zap trash: [
     "~/Library/Application Support/Cafe",

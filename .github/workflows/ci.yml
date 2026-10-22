@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      # brew only audits casks that belong to a tap, so link this checkout in as one.
+      - name: Tap this checkout
+        run: |
+          mkdir -p "$(brew --repository)/Library/Taps/kidchenko"
+          ln -s "$GITHUB_WORKSPACE" "$(brew --repository)/Library/Taps/kidchenko/homebrew-tap"
+          brew trust --tap kidchenko/tap
+      - name: Style
+        run: brew style kidchenko/tap
+      - name: Audit
+        run: brew audit --cask --online --tap kidchenko/tap
+      # Proves the url, sha256, app name and uninstall stanzas all line up.
+      - name: Install and uninstall
+        run: |
+          for f in Casks/*.rb; do
+            cask="kidchenko/tap/$(basename "$f" .rb)"
+            brew install --cask "$cask"
+            brew uninstall --cask --zap "$cask"
+          done

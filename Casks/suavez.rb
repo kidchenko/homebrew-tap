@@ -1,7 +1,7 @@
 # Homebrew cask. Lives in a tap (github.com/kidchenko/homebrew-tap) as
 # Casks/suavez.rb, then: brew install --cask kidchenko/tap/suavez
 #
-# The release workflow rewrites `version` and `sha256` from the DMG it built.
+# The tap's bump workflow rewrites `version` and `sha256` from the latest release.
 cask "suavez" do
   version "0.0.1"
   sha256 "e0106eb795d80f3d560fb48ef443be56578152aa12f627af1450d71f1afb4567"
@@ -10,6 +10,11 @@ cask "suavez" do
   name "Sua Vez"
   desc "Menu bar icon that lights up when a coding agent finishes or needs you"
   homepage "https://github.com/kidchenko/suavez"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   depends_on :macos
 
