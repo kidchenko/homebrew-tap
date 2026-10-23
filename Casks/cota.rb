@@ -3,8 +3,8 @@
 #
 # The tap's bump workflow rewrites `version` and `sha256` from the latest release.
 cask "cota" do
-  version "0.0.3"
-  sha256 "0f7b85eee602eeec3fd8fafa3f042347c3c27a81d312ae6ffe90a204789ef5d0"
+  version "0.0.4"
+  sha256 "65dad7f41cca69cb939b9d5e8c73df2b37cd19b680e1263109f7492b5d619be1"
 
   url "https://github.com/kidchenko/cota/releases/download/v#{version}/Cota-#{version}.dmg"
   name "Cota"
@@ -16,8 +16,6 @@ cask "cota" do
     strategy :github_latest
   end
 
-  # The release workflow builds on an Apple silicon runner, without --universal.
-  depends_on arch: :arm64
   depends_on :macos
 
   app "Cota.app"

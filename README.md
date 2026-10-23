@@ -16,7 +16,7 @@ brew install --cask kidchenko/tap/cota
 | Cask | |
 |---|---|
 | [`cafe`](Casks/cafe.rb) | [Cafe](https://github.com/kidchenko/cafe) keeps your Mac awake from the menu bar. |
-| [`cota`](Casks/cota.rb) | [Cota](https://github.com/kidchenko/cota) shows your Claude usage limits in the menu bar. Apple silicon only. |
+| [`cota`](Casks/cota.rb) | [Cota](https://github.com/kidchenko/cota) shows your Claude usage limits in the menu bar. |
 | [`porta`](Casks/porta.rb) | [Porta](https://github.com/kidchenko/porta) lists what's listening on your ports in the menu bar, and stops it. |
 | [`suavez`](Casks/suavez.rb) | [Sua Vez](https://github.com/kidchenko/suavez) lights up the menu bar when your coding agent finishes or needs you. |
 
