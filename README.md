@@ -4,7 +4,7 @@ Homebrew casks for [kidchenko](https://github.com/kidchenko)'s apps.
 
 ```bash
 brew tap kidchenko/tap
-brew install --cask cafe cantos cota porta suavez
+brew install --cask cafe cantos cota luz porta sonus suavez
 ```
 
 Or one at a time, without tapping first:
@@ -18,7 +18,9 @@ brew install --cask kidchenko/tap/cota
 | [`cafe`](Casks/cafe.rb) | [Cafe](https://github.com/kidchenko/cafe) keeps your Mac awake from the menu bar. |
 | [`cantos`](Casks/cantos.rb) | [Cantos](https://github.com/kidchenko/cantos) gives your screen corners actions, from the menu bar. |
 | [`cota`](Casks/cota.rb) | [Cota](https://github.com/kidchenko/cota) shows your Claude usage limits in the menu bar. |
+| [`luz`](Casks/luz.rb) | [Luz](https://github.com/kidchenko/luz) warms your screen at night, like f.lux, from the menu bar. |
 | [`porta`](Casks/porta.rb) | [Porta](https://github.com/kidchenko/porta) lists what's listening on your ports in the menu bar, and stops it. |
+| [`sonus`](Casks/sonus.rb) | [Sonus](https://github.com/kidchenko/sonus) gives every app its own volume slider, from the menu bar. |
 | [`suavez`](Casks/suavez.rb) | [Sua Vez](https://github.com/kidchenko/suavez) lights up the menu bar when your coding agent finishes or needs you. |
 
 The apps are ad-hoc signed, not notarized; each cask clears the quarantine flag
