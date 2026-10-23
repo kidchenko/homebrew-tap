@@ -25,8 +25,6 @@ cask "suavez" do
     run "/usr/bin/xattr",
         args:           ["-dr", "com.apple.quarantine", "{{appdir}}/SuaVez.app"],
         writable_paths: ["{{appdir}}/SuaVez.app"]
-    # Start it now, on install and upgrade, rather than at the next login.
-    run "/usr/bin/open", args: ["-g", "{{appdir}}/SuaVez.app"]
   end
 
   # Take the hooks out of every agent's settings before the binary goes.
