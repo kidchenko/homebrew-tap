@@ -4,7 +4,7 @@
 # The tap's bump workflow rewrites `version` and `sha256` from the latest release.
 cask "suavez" do
   version "0.0.2"
-  sha256 "b12394a81255fdd9434d016761ee2a310c6ed39a2cd39d5715e2f02c71a3bb12"
+  sha256 "5b1956316c4cbce2a682e36e66211f87c329da143eb51578c3fbebbdd505dd86"
 
   url "https://github.com/kidchenko/suavez/releases/download/v#{version}/SuaVez-#{version}.dmg"
   name "Sua Vez"
@@ -25,15 +25,19 @@ cask "suavez" do
     run "/usr/bin/xattr",
         args:           ["-dr", "com.apple.quarantine", "{{appdir}}/SuaVez.app"],
         writable_paths: ["{{appdir}}/SuaVez.app"]
+    # Start it now, on install and upgrade, rather than at the next login.
+    run "/usr/bin/open", args: ["-g", "{{appdir}}/SuaVez.app"]
   end
 
   # Take the hooks out of every agent's settings before the binary goes.
-  # Left behind, every agent turn would try to run a missing file.
-  uninstall launchctl: "com.kidchenko.suavez",
-            quit:      "com.kidchenko.suavez",
-            script:    {
+  # Left behind, every agent turn would try to run a missing file. This also
+  # runs on upgrade: --package forgets the first connection too, so the new
+  # version reconnects on launch. No launchctl here, or every upgrade would
+  # delete "Run at login"; --zap still removes the LaunchAgent plist.
+  uninstall quit:   "com.kidchenko.suavez",
+            script: {
               executable:   "#{appdir}/SuaVez.app/Contents/MacOS/suavez",
-              args:         ["uninstall"],
+              args:         ["uninstall", "--package"],
               must_succeed: false,
             }
 
