@@ -8,7 +8,7 @@ cask "suavez" do
 
   url "https://github.com/kidchenko/suavez/releases/download/v#{version}/SuaVez-#{version}.dmg"
   name "Sua Vez"
-  desc "Menu bar icon that lights up when a coding agent finishes or needs you"
+  desc "Menu bar light for when your coding agent finishes or needs you"
   homepage "https://github.com/kidchenko/suavez"
 
   livecheck do
@@ -27,17 +27,8 @@ cask "suavez" do
         writable_paths: ["{{appdir}}/SuaVez.app"]
   end
 
-  # Take the hooks out of every agent's settings before the binary goes.
-  # Left behind, every agent turn would try to run a missing file. This also
-  # runs on upgrade: --package forgets the first connection too, so the new
-  # version reconnects on launch. No launchctl here, or every upgrade would
-  # delete "Run at login"; --zap still removes the LaunchAgent plist.
-  uninstall quit:   "com.kidchenko.suavez",
-            script: {
-              executable:   "#{appdir}/SuaVez.app/Contents/MacOS/suavez",
-              args:         ["uninstall", "--package"],
-              must_succeed: false,
-            }
+  uninstall launchctl: "com.kidchenko.suavez",
+            quit:      "com.kidchenko.suavez"
 
   zap trash: [
     "~/Library/Application Support/SuaVez",
