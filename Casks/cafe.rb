@@ -3,8 +3,8 @@
 #
 # The tap's bump workflow rewrites `version` and `sha256` from the latest release.
 cask "cafe" do
-  version "0.0.2"
-  sha256 "08edd92c950e26205fe4749296fe61cb87424c5f5203d0d81a3df811b4b97625"
+  version "0.0.3"
+  sha256 "9d3637d3616b557f2be99b026963f7ded5aab4c459ff401c7d8eb86e0c39d242"
 
   url "https://github.com/kidchenko/cafe/releases/download/v#{version}/Cafe-#{version}.dmg"
   name "Cafe"
