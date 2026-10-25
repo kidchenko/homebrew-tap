@@ -3,8 +3,8 @@
 #
 # The tap's bump workflow rewrites `version` and `sha256` from the latest release.
 cask "cantos" do
-  version "0.0.3"
-  sha256 "2ae1e64ff5d289e89c2a911d197cfa9447fd0a4767b764d447a64cffd7850257"
+  version "0.0.4"
+  sha256 "f2c15e99f22703b4d02c1258e8af24d3b33e5721a349d0093af2df15798033c7"
 
   url "https://github.com/kidchenko/cantos/releases/download/v#{version}/Cantos-#{version}.dmg"
   name "Cantos"
