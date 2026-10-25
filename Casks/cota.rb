@@ -3,8 +3,8 @@
 #
 # The tap's bump workflow rewrites `version` and `sha256` from the latest release.
 cask "cota" do
-  version "0.0.4"
-  sha256 "65dad7f41cca69cb939b9d5e8c73df2b37cd19b680e1263109f7492b5d619be1"
+  version "0.0.5"
+  sha256 "4277c74603f6fef2fbf815fed3b0142abd0a6eeda8d2e1017b6e156f4a6a39a4"
 
   url "https://github.com/kidchenko/cota/releases/download/v#{version}/Cota-#{version}.dmg"
   name "Cota"
